@@ -168,9 +168,9 @@ void readDigital()
 // DIGITAL READ not supports on A3 .. A7 on Arduino Uno
 #ifdef DEBUG_READ
   Serial.print(F("Read 9 bytes: "));
-  Serial.print(buffer[0]);
+  Serial.println(buffer[0]);
   Serial.print(' ');
-  Serial.print(buffer[1]);
+  Serial.println(buffer[1]);
   Serial.print(' ');
   Serial.println(buffer[2]);
   Serial.print(' ');
@@ -218,7 +218,7 @@ void onRequest()
 // A4 and A5 on Arduino Uno are not supported due to I2C
 #define CMD_ANALOG_READ_A0 0b1000 // 0x8
 // ....
-#define CMD_ANALOG_READ_A14 0b10000 //16
+#define CMD_ANALOG_READ_A15 0b1111 //15
 
 #define CMD_SETUP_ANALOG_INTERNAL 0x10
 #define CMD_SETUP_ANALOG_DEFAULT 0x12
@@ -238,7 +238,7 @@ void onReceive(int numBytes)
     break;
   }
 
-  if (cmd >= CMD_ANALOG_READ_A0 && cmd <= CMD_ANALOG_READ_A14)
+  if (cmd >= CMD_ANALOG_READ_A0 && cmd <= CMD_ANALOG_READ_A15)
   {
     readAnalog(cmd & 0b1110);
     return;
